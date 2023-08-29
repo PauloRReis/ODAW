@@ -1,0 +1,23 @@
+.Imagem_Times{
+    height: 50px;
+    width: 50px;
+}
+.A_Times{
+    text-decoration: none;
+    color: black;
+}
+header{
+    font-family: Arial;
+    font-size: small;
+    font-weight: bold;
+    background: black;
+    text-align: center;
+    padding: 20pt;
+    border-top: inset;
+    border-bottom: inset;
+    position: relative;
+}
+.cadastro{
+    color: white;
+    text-decoration: none;
+}
