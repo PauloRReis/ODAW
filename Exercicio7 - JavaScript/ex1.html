@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário com Alteração de Letras</title>
+</head>
+<body>
+    <h1>Formulário com Alteração de Letras</h1>
+    
+    <form id="meuForm">
+        <label for="campo1">Campo 1:</label>
+        <input type="text" id="campo1" name="campo1" oninput="alterarLetras(this)">
+        <br><br>
+
+        <label for="campo2">Campo 2:</label>
+        <input type="text" id="campo2" name="campo2" oninput="alterarLetras(this)">
+        <br><br>
+
+        <label for="campo3">Campo 3:</label>
+        <input type="text" id="campo3" name="campo3" oninput="alterarLetras(this)">
+        <br><br>
+
+        <label for="maiusculas">Maiúsculas:</label>
+        <input type="checkbox" id="maiusculas" onchange="alterarCase()">
+    </form>
+
+    <script>
+        function alterarLetras(input) {
+            const maiusculasCheckbox = document.getElementById('maiusculas');
+
+            if (maiusculasCheckbox.checked) {
+                input.value = input.value.toUpperCase();
+            } else {
+                input.value = input.value.toLowerCase();
+            }
+        }
+
+        function alterarCase() {
+            const camposTexto = document.querySelectorAll('input[type="text"]');
+
+            for (const campo of camposTexto) {
+                alterarLetras(campo);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário com Validação de Campos Obrigatórios</title>
+</head>
+<body>
+    <h1>Formulário com Validação de Campos Obrigatórios</h1>
+    
+    <form id="meuForm" onsubmit="validarForm(event)">
+        <label for="campo1">Campo 1 (obrigatório):</label>
+        <input type="text" id="campo1" name="campo1" required>
+        <br><br>
+
+        <label for="campo2">Campo 2 (obrigatório):</label>
+        <input type="text" id="campo2" name="campo2" required>
+        <br><br>
+
+        <label for="campo3">Campo 3 (obrigatório):</label>
+        <input type="text" id="campo3" name="campo3" required>
+        <br><br>
+
+        <label for="campo4">Campo 4 (obrigatório):</label>
+        <input type="text" id="campo4" name="campo4" required>
+        <br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        function validarForm(event) {
+            event.preventDefault();
+            const campo1 = document.getElementById('campo1').value;
+            const campo2 = document.getElementById('campo2').value;
+            const campo3 = document.getElementById('campo3').value;
+            const campo4 = document.getElementById('campo4').value;
+
+            if (!campo1 || !campo2 || !campo3 || !campo4) {
+                alert('Erro: Todos os campos obrigatórios devem ser preenchidos!');
+            } else {
+                alert('Sucesso: O formulário foi enviado com sucesso!');
+                document.getElementById('meuForm').reset();
+            }
+        }
+    </script>
+</body>
+</html>

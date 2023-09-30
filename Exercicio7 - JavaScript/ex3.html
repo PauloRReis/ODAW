@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Saudação Personalizada</title>
+</head>
+<body>
+    <script>
+        const nomeUsuario = prompt("Digite seu nome:");
+
+        const dataAtual = new Date();
+        const horaAtual = dataAtual.getHours();
+
+        let periodoDia;
+
+        if (horaAtual >= 6 && horaAtual < 12) {
+            periodoDia = "Bom dia";
+        } else if (horaAtual >= 12 && horaAtual < 18) {
+            periodoDia = "Boa tarde";
+        } else {
+            periodoDia = "Boa noite";
+        }
+
+        const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+        const diaSemana = diasSemana[dataAtual.getDay()];
+        const dia = dataAtual.getDate();
+        const mes = dataAtual.getMonth() + 1;
+        const ano = dataAtual.getFullYear();
+
+        const mensagem = `${periodoDia}, ${nomeUsuario}, hoje é ${diaSemana}, ${dia}/${mes}/${ano}.`;
+
+        alert(mensagem);
+    </script>
+</body>
+</html>

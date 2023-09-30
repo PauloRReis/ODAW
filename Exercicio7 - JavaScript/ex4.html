@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tarefas</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+    <input type="text" id="novaTarefa" placeholder="Adicionar nova tarefa">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+    <ul id="listaTarefas">
+    </ul>
+
+    <script>
+        function adicionarTarefa() {
+            const inputTarefa = document.getElementById('novaTarefa');
+            const textoTarefa = inputTarefa.value.trim();
+
+            if (textoTarefa === '') {
+                alert('Por favor, insira uma tarefa válida.');
+                return;
+            }
+
+            const listaTarefas = document.getElementById('listaTarefas');
+            const novaTarefaItem = document.createElement('li');
+            novaTarefaItem.innerHTML = `
+                <input type="checkbox" onchange="marcarComoConcluida(this)">
+                <span>${textoTarefa}</span>
+                <button onclick="removerTarefa(this)">Remover</button>
+            `;
+
+            listaTarefas.appendChild(novaTarefaItem);
+            inputTarefa.value = '';
+        }
+
+        function marcarComoConcluida(checkbox) {
+            const tarefaTexto = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                tarefaTexto.classList.add('completed');
+            } else {
+                tarefaTexto.classList.remove('completed');
+            }
+        }
+
+        function removerTarefa(botao) {
+            const tarefaItem = botao.parentElement;
+            tarefaItem.remove();
+        }
+    </script>
+</body>
+</html>
