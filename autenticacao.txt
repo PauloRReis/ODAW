@@ -1,4 +1,0 @@
-usuario1:senha1
-usuario3:$2y$10$nysjmR9r0JQ2eYdXnsuEwub5Odb51HSuj6GREK2RuvDLK3DVLu3iK
-usuario5:$2y$10$.pl8aNRfdBIi7Q9xraF9hOD0HON2TvgET9U5i3LOGb7XqTfxguDDi
-usuario6:$2y$10$dD8vpr3fabb1ox.kfNZaDOSFesHPkmmfWIZnz44PIwY0bTIlSPvni
