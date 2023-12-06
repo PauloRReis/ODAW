@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>  
+<body>
+<style>
+.error {color: #FF0000;}
+</style>
+
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jquery-mask.js"></script>
+<script type="text/javascript" src="sistema.js"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title> Receitas </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-image: url('https://www.hashmicro.com/blog/wp-content/uploads/2022/01/Saluran-Distribusi14.png');
+            background-position: center;
+            background-size: cover;
+            /* Adicionado para forçar a tag article a ocupar o meio da página inteira,...
+            ... isto é, forçar o footer abaixo */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-row w3-padding w3-black">
+            <div class="w3-col s3">
+                <a href="pagina_inicial.html" class="w3-button w3-block w3-black"> INÍCIO </a>
+            </div>
+            <div class="w3-col s3">
+                <p> </p>
+            </div>
+            <div class="w3-col s3">
+                <a onclick="document.getElementById('menu-cadastro').style.display='block'"
+                    class="w3-button w3-block w3-black">
+                    CADASTRO
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <article>
+
+        <div class="row" style="position: fixed; left: 41%; top: 50%;">
+            <div class="bgimg w3-display-container w3-text-white">
+                <div class="w3-display-topleft w3-container w3-xlarge"
+                    style="font-family: 'Courier New', Courier, monospace;">
+                    <form method="post" action="pagina_postar_receitas.html">
+                        <br>
+                        <text id = "warning_postar_receita"> </text>
+                        <label for="email"> E-mail: </label>
+                        <input type="email" id="email" name="email">
+                        <br><br>
+                        <label for="senha_sign_up"> Senha: </label>
+                        <input type="password" id="senha_sign_in" name="senha_sign_in">
+                        &nbsp;
+                        <br><br>
+                        <button type="reset"> Limpar </button>
+                        <button type="button" onclick="checkSignIn()"> Login </button>
+                        <br><br>
+                        <input type="submit" name="Postar Receitas" 
+                        class="w3-button w3-black" value="Postar Receitas"></button></p>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-login" class="w3-modal">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-black w3-display-container">
+                    <span onclick="document.getElementById('menu-login').style.display='none'"
+                        class="w3-button w3-display-topright w3-large">x</span>
+                    <h1>Login</h1>
+                </div>
+                <div class="w3-container" style="text-align: center;">
+                    <form id = "sign_in" method="post">
+                        <br>
+                        <text id = "warning_login"> </text>
+                        <label for="email"> E-mail: </label>
+                        <input type="email" id="email" name="email">
+                        <br><br>
+                        <label for="senha_sign_up"> Senha: </label>
+                        <input type="password" id="senha_sign_in" name="senha_sign_in">
+                        &nbsp;
+                        <br><br>
+                        <button type="reset"> Limpar </button>
+                        <button type="button" onclick="checkSignIn()"> Login </button>
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-cadastro" class="w3-modal">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-black w3-display-container">
+                    <span onclick="document.getElementById('menu-cadastro').style.display='none'"
+                        class="w3-button w3-display-topright w3-large">x</span>
+                    <h1>Cadastro</h1>
+                </div>
+                <div class="w3-container" style="text-align: left; margin-left: 10%;">
+                    <form id = "sign_up" method="post">
+                        <br>
+                        <text id = "warning_cadastro"> </text>
+                        <label for="primeiroNomeCadastro"> Nome: </label>
+                        <input type="text" id="primeiroNomeCadastro" name="primeiroNomeCadastro">
+                        &nbsp;
+                        <!-- &nbsp; gera um espaço na linha por isso serve para separar itens da mesma altura da página-->
+                        <label for="ultimoNomeCadastro"> Sobrenome: </label>
+                        <input type="text" id="ultimoNomeCadastro" name="ultimoNomeCadastro">
+                        <br><br>
+                        <text id = "warning_cpf"> </text>
+                        <label for="cpf"> CPF: </label>
+                        <input type="text" id="cpf" name="cpf">
+                        <br><br>
+                        <label for="email-cadastro"> E-mail: </label>
+                        <input type="email" id="email_cadastro" name="email_cadastro">
+                        <br><br>
+                        <label for="senha_sign_up"> Senha: </label>
+                        <input type="password" id="senha_sign_up" name="senha_sign_up">
+                        &nbsp;
+                        <label for="senha_confirmada"> Confirmar senha: </label>
+                        <input type="password" id="senha_confirmada" name="senha_confirmada">
+                        <text id = "warning_senha"> </text>
+                        <br><br>
+                        <label for="data_de_nascimento"> Data de Nascimento: </label>
+                        <input type="date" id="data_de_nascimento" name="data_de_nascimento">
+                        <text id = "warning_data_de_nascimento"> </text>
+                        <br><br>
+                        <input type="checkbox" id="termos_e_condicoes" name="termos_e_condicoes">
+                        <label for="termos_e_condicoes"> Eu concordo com os
+                            <a href="" target="_blank" rel="external" hreflang="pt" type="text/html">
+                                termos e condições.
+                            </a>
+                            <text id = "warning_termos_e_condicoes"> </text>
+                        </label>
+                        <br><br>
+                        <button type="reset"> Limpar formulário </button>
+                        <button type="button" onclick="checkSignUp()"> Finalizar </button>
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </article>
+    <div class="row">
+        <div class="w3-row w3-padding w3-black"">
+            <div class=" w3-col s3">
+            <a href="#menu" class="w3-button w3-block w3-black">SOBRE NÓS</a>
+        </div>
+        <div class="w3-col s3">
+            <p> </p>
+        </div>
+        <div class="w3-col s3">
+            <p> </p>
+        </div>
+        <div class="w3-col s3">
+            <a href="#menu" class="w3-button w3-block w3-black">POLÍTICA DE COPYRIGHT </a>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

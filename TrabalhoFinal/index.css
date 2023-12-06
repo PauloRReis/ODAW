@@ -1,0 +1,88 @@
+/* Define o tamanho da box de todos os itens como "border-box"? */
+* {
+    box-sizing: border-box;
+}
+h1,
+h5 {
+    font-family: 'Courier New', Courier, monospace;
+}
+input[type=email],
+select {
+    width: 40%;
+    padding: 12px, 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=text],
+select {
+    width: 25%;
+    padding: 12px, 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password],
+select {
+    width: 25%;
+    padding: 12px, 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+/* Adicionado para forçar a tag article a ocupar o meio da página inteira,...
+... isto é, forçar o footer abaixo */
+article {
+    flex: 1;
+}
+/* Style the header */
+.header {
+    background-color: #f1f1f1;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+}
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    /* Esta porcentage de width limita o número de colunas que cabem numa row */
+    width: 33.33%;
+    padding: 10px;
+    height: 300px;
+    /* Should be removed. Only for demonstration */
+}
+/* O que é um float: */
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.row {}
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+    .footer {
+        width: 100%;
+    }
+    /* Por que o '@'? */
+}
+
+#receitas-container {
+    text-align: center; /* Isso centraliza o conteúdo dentro da div */
+    max-width: 600px; /* Defina a largura máxima da div conforme necessário */
+    margin: auto; /* Isso centraliza a div horizontalmente */
+    padding: 20px;
+    border: 1px solid #ccc; /* Adicione uma borda para visualização */
+}
