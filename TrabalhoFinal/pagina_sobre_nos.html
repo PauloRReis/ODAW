@@ -8,6 +8,8 @@
 <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="jquery-mask.js"></script>
 <script type="text/javascript" src="sistema.js"></script>
+<script type="text/javascript" src="dados/receita.js"></script>
+<script type="text/javascript" src="dados/usuario.js"></script>
 
 
 <!DOCTYPE html>
@@ -43,8 +45,14 @@
             <div class="w3-col s3">
                 <a href="pagina_inicial.html" class="w3-button w3-block w3-black"> INÍCIO </a>
             </div>
-            <div class="w3-col s3">
-                <p> </p>
+            <div class="w3-col s3" id="BotaCadastro">
+                <a onclick="document.getElementById('menu-cadastro').style.display='block'" class="w3-button w3-block w3-black"> CADASTRO </a>
+            </div>
+            <div class="w3-col s3" id="BotaoLogin">
+                <a onclick="document.getElementById('menu-login').style.display='block'" class="w3-button w3-block w3-black\"> LOGIN </a>
+            </div>
+            <div class="w3-col s3" id="ButtonSair" style="display: none; position: absolute; top: 10px; right: 10px;">
+                <a class="w3-button w3-block w3-black\"> SAIR </a>
             </div>
         </div>
     </div>
@@ -70,7 +78,6 @@
                         class="w3-button w3-display-topright w3-large">x</span>
                     <h1>Login</h1>
                 </div>
-                <script src="functions.js"></script>
                 <div class="w3-container" style="text-align: center;">
                     <form id = "sign_in" method="post">
                         <br>
@@ -83,7 +90,7 @@
                         &nbsp;
                         <br><br>
                         <button type="reset"> Limpar </button>
-                        <button type="button" onclick="checkSignIn()"> Login </button>
+                        <button id="ButtonLogin" type="button"> Login </button>
                         <br><br>
                     </form>
                 </div>
@@ -97,9 +104,8 @@
                         class="w3-button w3-display-topright w3-large">x</span>
                     <h1>Cadastro</h1>
                 </div>
-                <script src="functions.js"></script>
                 <div class="w3-container" style="text-align: left; margin-left: 10%;">
-                    <form id = "sign_up" method="post">
+                    <form id = "sign_up" method="post" action="sistema.js">
                         <br>
                         <text id = "warning_cadastro"> </text>
                         <label for="primeiroNomeCadastro"> Nome: </label>
@@ -129,18 +135,21 @@
                         <br><br>
                         <input type="checkbox" id="termos_e_condicoes" name="termos_e_condicoes">
                         <label for="termos_e_condicoes"> Eu concordo com os
-                            <a href="pagina_termos_de_uso.php" target="_blank" rel="external" hreflang="pt" type="text/html">
+                            <a href="pagina_termos_de_uso.html" target="_blank" rel="external" hreflang="pt" type="text/html">
                                 termos e condições.
                             </a>
                             <text id = "warning_termos_e_condicoes"> </text>
                         </label>
                         <br><br>
                         <button type="reset"> Limpar formulário </button>
-                        <button type="button" onclick="checkSignUp()"> Finalizar </button>
+                        <button id= 'ButtonCadastro' type="button"> Finalizar </button>
                         <br><br>
                     </form>
                 </div>
             </div>
         </div>
+    </article>
+
+    
 </body>
 </html>

@@ -1,6 +1,9 @@
 class Sistema{
     constructor(){
         this.receitas = [];
+        this.usuarios = [];
+        this.popupativo = undefined;
+        this.autenticado = false;
     }
 
 sha256(message) {
@@ -264,8 +267,6 @@ drawOutput(responseText) {
 
 exibirReceitas() {
     var container = $('#receitas-container');
-
-    console.log(Sys.receitas.length);
     
     // Itera sobre as receitas e adiciona ao container
     for (var i = 0; i < Sys.receitas.length; i++) {
@@ -273,9 +274,10 @@ exibirReceitas() {
         var html = `
             <div class="receita">
                 <h2>Nome da Receita: ${receita.getNome()}</h2>
+                <p>Ingredientes: ${receita.getIngredientes()}</p>
                 <p>Preparo: ${receita.getPreparo()}</p>
-                <p>Avaliação: ${receita.getAvaliacao()} estrelas</p>
                 <p>Tempo de preparo: ${receita.getTempo()} minutos</p>
+                <p>Avaliação: ${receita.getAvaliacao()} estrelas</p>
                 <p>Usuário: ${receita.getUsuario()}</p>
             </div>
         `;
@@ -295,7 +297,7 @@ setReceitas(){
                 for(key in o){
                     if(o[key] != ""){
                         var b = o[key];
-                        var e = new Receita(b[0],b[1],b[2],b[3],b[4],b[5],b[6]);
+                        var e = new Receita(b[0],b[1],b[2],b[3],b[4],b[5],b[6], b[7]);
                         Sys.receitas.push(e);
                     }
                 }
@@ -304,54 +306,144 @@ setReceitas(){
     })
 }
 
+insertUsuario(){
+    var primeiroNomeCadastro = document.getElementById("primeiroNomeCadastro").value;
+    var ultimoNomeCadastro = document.getElementById("ultimoNomeCadastro").value;
+    var email_cadastro = document.getElementById("email_cadastro").value;
+    var senha_sign_up = document.getElementById("senha_sign_up").value;
+
+    var dados = primeiroNomeCadastro+"^"+email_cadastro+"^"+senha_sign_up+"^"+ultimoNomeCadastro;
+
+    $.ajax({
+        url: "persistencia/usuario.php",
+        data:"op=1&dados="+dados,
+        type:"POST",
+        cache:false,
+        success: function(r){
+            var a = new Usuario(primeiroNomeCadastro, email_cadastro, senha_sign_up, ultimoNomeCadastro);
+            Sys.usuarios.push(a);
+        }
+    });
+
+}
+
+setUsuarios(){
+    $.ajax({
+        url: "persistencia/usuario.php",
+            data:"op=0",
+            type:"POST",
+            cache:false,
+            success: function(r){
+                const o = JSON.parse(r);
+                var key;
+                for(key in o){
+                    if(o[key] != ""){
+                        var b = o[key];
+                        var e = new Usuario(b[0],b[1],b[2],b[3],b[4]);
+                        console.log(e);
+                        Sys.usuarios.push(e);
+                    }
+                }
+            }
+    })
+}
+
+loginUsuario(){
+    var email = document.getElementById("email").value;
+    var senha_sign_in = document.getElementById("senha_sign_in").value;
+    var popup = document.getElementById('menu-login');
+
+    const dados = email+"^"+senha_sign_in;
+
+    $.ajax({
+        url: "persistencia/usuario.php",
+            data:"op=2&dados="+dados,
+            type:"POST",
+            cache:false,
+            success: function(r){
+                const o = JSON.parse(r);
+                if(Object.keys(o).length > 0){
+                    //Armazena o login
+                    sessionStorage.setItem('autenticado', 'true');
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify(r));
+
+                    //Muda os botoes de cadastro e login
+                    document.getElementById('ButtonSair').style.display = 'block';
+                    document.getElementById('BotaCadastro').style.display = 'none';
+                    document.getElementById('BotaoLogin').style.display = 'none';
+                    console.log('Usuário autenticado!');
+                    popup.style.display = 'none';
+                }else{
+                    alert('Email ou senha incorretos. Tente novamente.');
+                }
+            }
+    })
+}
+
+sairUsuario(){
+
+    document.getElementById('ButtonSair').style.display = 'none';
+    document.getElementById('BotaoLogin').style.display = 'block';
+    document.getElementById('BotaCadastro').style.display = 'block';
+
+    sessionStorage.removeItem('autenticado');
+    sessionStorage.removeItem('usuarioLogado');
+}
+
+verificarAutenticacao() {
+    var autenticado = sessionStorage.getItem('autenticado');
+
+    if (autenticado) {
+      document.getElementById('ButtonSair').style.display = 'block';
+      document.getElementById('BotaoLogin').style.display = 'none';
+      document.getElementById('BotaCadastro').style.display = 'none';
+    } else {
+      document.getElementById('ButtonSair').style.display = 'none';
+      document.getElementById('BotaoLogin').style.display = 'block';
+      document.getElementById('BotaCadastro').style.display = 'block';
+    }
+}
+
+insertReceitas(){
+    var nome_receita = document.getElementById("nome_receita").value;
+    var ingredientes = document.getElementById("Ingredientes").value;
+    var modo_de_preparo = document.getElementById("modo_de_preparo").value;
+    var tempo_de_preparo = document.getElementById("tempo_de_preparo").value;
+
+    console.log(nome_receita);
+    console.log(ingredientes);
+    console.log(modo_de_preparo);
+    console.log(tempo_de_preparo);
+
+    var dados = primeiroNomeCadastro+"^"+email_cadastro+"^"+senha_sign_up+"^"+ultimoNomeCadastro;
+
+    console.log(dados);
+
+    $.ajax({
+        url: "persistencia/receita.php",
+            data:"op=1&dados="+dados,
+            type:"POST",
+            cache:false,
+            success: function(r){
+                var a = new Receitas(nome_receita, ingredientes, modo_de_preparo, tempo_de_preparo);
+                Sys.receitas.push(a);            
+            }
+    })
+}
+
+
 }
 
 Sys = new Sistema();
 
 $(document).ready(function() {
-    $("ListaReceitas").click(function(){ setReceitas();});
+    $("#ListaReceitas").click(function(){ Sys.setReceitas();});
+    $("#ButtonCadastro").click(function(){ Sys.insertUsuario();});
+    $("#ButtonLogin").click(function(){ Sys.loginUsuario();});
+    $("#ButtonSair").click(function(){ Sys.sairUsuario();});
+    $("#ButtonPostar").click(function(){ Sys.insertReceitas();});
 
     Sys.setReceitas();
+    Sys.verificarAutenticacao();
 });
 
-
-/* function setReceitas(){ 
-    fetch("persistencia/receita.php", {
-        method: "POST",
-        body: "op=0",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        }
-    }).then(response => response.json()).then(data => {
-        for (const key in data) {
-            if (data[key] !== "") {
-                const b = data[key];
-                const e = new Receita(b[0], b[1], b[2], b[3], b[4], b[5], b[6]);
-                receitas.push(e);
-            }
-        }
-        exibirReceitas(receitas);
-    });
-}
-
-function exibirReceitas(receitas) {
-    const container = document.getElementById('receitas-container');
-
-    // Itera sobre as receitas e adiciona ao container
-    receitas.forEach(receita => {
-        const html = `
-            <div class="receita">
-                <h2>Nome da Receita: ${receita.getNome()}</h2>
-                <p>Preparo: ${receita.getPreparo()}</p>
-                <p>Avaliação: ${receita.getAvaliacao()} estrelas</p>
-                <p>Tempo de preparo: ${receita.getTempo()} minutos</p>
-                <p>Usuário: ${receita.getUsuario()}</p>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-    })
-} */
-
-/* document.getElementById('ListaReceitas').addEventListener("click", function() {
-    setReceitas();
-}); */

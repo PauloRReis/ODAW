@@ -18,19 +18,20 @@ $localhost = conectar();
 
 $d1 = 'site_receitas';
 if($_POST['op'] == "0"){ //SELECT
-    $sql = "SELECT * FROM $d1.receita";
+    $sql = "SELECT * FROM usuarios";
     $r1 = $localhost->query($sql);
     $res = array();
     while($row = $r1->fetch_array()){
-        $rs = array($row[0], $row[1], $row[2], $row[3], $row[4],$row[5], $row[6], $row[7]);
+        $rs = array($row[0], $row[1], $row[2], $row[3], $row[4]);
         $res["".$row[0]] = $rs;
     }
     $localhost->close();
     $json = json_encode($res);
     die($json);
+
 }elseif($_POST['op'] == "1"){ //INSERT
     $d = explode("^", $_POST["dados"]);
-    $sql = "INSERT INTO receita(nome_receita, modo_de_preparo, ingredientes, tempo_de_preparo, ID_Usuario) VALUES ('".$d[0]."','".$d[1]."', '".$d[2]."' , '".$d[3]."', ".$d[7].")";
+    $sql = "INSERT INTO usuarios(nome, email, senha, sobrenome) VALUES ('".$d[0]."','".$d[1]."', '".$d[2]."' , '".$d[3]."')";
     $localhost->query($sql);
 
     $r1 = $localhost->query("SELECT LAST_INSERT_ID()");
@@ -38,7 +39,20 @@ if($_POST['op'] == "0"){ //SELECT
     $idINS = $r[0];
     $localhost->close();
 
-    die($idINS."^".$d[0]."^".$d[1]."^".$d[2]."^".$d[3]."^".$d[7]);
+    die($idINS."^".$d[0]."^".$d[1]."^".$d[2]."^".$d[3]);
+}elseif($_POST['op'] == "2"){
+    $d = explode("^", $_POST["dados"]);
+    $sql = " SELECT * FROM usuarios WHERE email='".$d[0]."' AND senha='".$d[1]."' ";
+    $r1 = $localhost->query($sql);
+    $res = array();
+    while($row = $r1->fetch_array()){
+        $rs = array($row[0], $row[1], $row[2], $row[3], $row[4]);
+        $res["".$row[0]] = $rs;
+    }
+    $localhost->close();
+    $json = json_encode($res);
+    die($json);
+
 }
 
 $localhost->close();

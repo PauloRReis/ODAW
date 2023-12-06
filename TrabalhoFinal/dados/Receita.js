@@ -1,10 +1,11 @@
 class Receita{
-    constructor(id_receita, nome, preparo, avaliacao, tempo, imagem, usuario){
+    constructor(id_receita, nome, preparo, ingredientes, tempo, avaliacao, imagem, usuario){
         this.id_receita = id_receita;
         this.nome = nome;
         this.preparo = preparo;
-        this.avaliacao = avaliacao;
+        this.ingredientes = ingredientes;
         this.tempo = tempo;
+        this.avaliacao = avaliacao;
         this.imagem = imagem;
         this.usuario = usuario;
     }
@@ -17,6 +18,9 @@ class Receita{
     }
     getPreparo(){
         return this.preparo;
+    }
+    getIngredientes(){
+        return this.ingredientes;
     }
     getAvaliacao(){
         return this.avaliacao;

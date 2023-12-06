@@ -8,6 +8,8 @@
 <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="jquery-mask.js"></script>
 <script type="text/javascript" src="sistema.js"></script>
+<script type="text/javascript" src="dados/receita.js"></script>
+<script type="text/javascript" src="dados/usuario.js"></script>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,8 +44,14 @@
             <div class="w3-col s3">
                 <a href="pagina_inicial.html" class="w3-button w3-block w3-black"> INÍCIO </a>
             </div>
-            <div class="w3-col s3">
-                <p> </p>
+            <div class="w3-col s3" id="BotaCadastro">
+                <a onclick="document.getElementById('menu-cadastro').style.display='block'" class="w3-button w3-block w3-black"> CADASTRO </a>
+            </div>
+            <div class="w3-col s3" id="BotaoLogin">
+                <a onclick="document.getElementById('menu-login').style.display='block'" class="w3-button w3-block w3-black\"> LOGIN </a>
+            </div>
+            <div class="w3-col s3" id="ButtonSair" style="display: none; position: absolute; top: 10px; right: 10px;">
+                <a class="w3-button w3-block w3-black\"> SAIR </a>
             </div>
         </div>
     </div>

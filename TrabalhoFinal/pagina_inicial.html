@@ -7,8 +7,10 @@
 
 <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="jquery-mask.js"></script>
-<script type="text/javascript" src="dados/Receita.js"></script>
 <script type="text/javascript" src="sistema.js"></script>
+<script type="text/javascript" src="dados/receita.js"></script>
+<script type="text/javascript" src="dados/usuario.js"></script>
+
 
 <!DOCTYPE html>
 <head>
@@ -41,16 +43,20 @@
             <div class="w3-col s3">
                 <a href="pagina_inicial.html" class="w3-button w3-block w3-black"> INÍCIO </a>
             </div>
-            <div class="w3-col s3">
-                <a onclick="document.getElementById('menu-cadastro').style.display='block'"
-                    class="w3-button w3-block w3-black">
-                    CADASTRO
-                </a>
+            <div class="w3-col s3" id="BotaCadastro">
+                <a onclick="document.getElementById('menu-cadastro').style.display='block'" class="w3-button w3-block w3-black"> CADASTRO </a>
+            </div>
+            <div class="w3-col s3" id="BotaoLogin">
+                <a onclick="document.getElementById('menu-login').style.display='block'" class="w3-button w3-block w3-black\"> LOGIN </a>
+            </div>
+            <div class="w3-col s3" id="ButtonSair" style="display: none; position: absolute; top: 10px; right: 10px;">
+                <a class="w3-button w3-block w3-black\"> SAIR </a>
             </div>
         </div>
     </div>
     
     <article>
+        <!-- Botao Lista de Receitas -->
         <div class="row" style="position: fixed; left: 40%; top: 40%;">
             <div class="bgimg w3-display-container w3-text-white">
                 <div class="w3-display-topleft w3-container w3-xlarge" style="font-family: 'Courier New', Courier, monospace;">
@@ -61,22 +67,16 @@
             </div>
         </div>
 
+        <!-- Botao Postar Receitas -->
         <div class="row" style="position: fixed; left: 41%; top: 50%;">
             <div class="bgimg w3-display-container w3-text-white">
-                <div class="w3-display-topleft w3-container w3-xlarge"
-                    style="font-family: 'Courier New', Courier, monospace;">
-
-                    <br>
-                    <form method="post" action="pagina_postar_receitas.html">
-                            <input type="submit" name="Postar Receitas" 
-                            class="w3-button w3-black" value="Postar Receitas"></button></p>
-                    </form>
-
-
+                <div class="w3-display-topleft w3-container w3-xlarge" style="font-family: 'Courier New', Courier, monospace;">
+                    <button class="w3-button w3-black" type="button" onclick="document.getElementById('menu-postar-receitas').style.display='block'"> Postar Receitas </button>
                 </div>
             </div>
         </div>
 
+        <!-- Popup de login -->
         <div id="menu-login" class="w3-modal">
             <div class="w3-modal-content w3-animate-zoom">
                 <div class="w3-container w3-black w3-display-container">
@@ -96,13 +96,14 @@
                         &nbsp;
                         <br><br>
                         <button type="reset"> Limpar </button>
-                        <button type="button" onclick="checkSignIn()"> Login </button>
+                        <button id="ButtonLogin" type="button"> Login </button>
                         <br><br>
                     </form>
                 </div>
             </div>
         </div>
 
+        <!-- Popup de cadastro -->
         <div id="menu-cadastro" class="w3-modal">
             <div class="w3-modal-content w3-animate-zoom">
                 <div class="w3-container w3-black w3-display-container">
@@ -111,7 +112,7 @@
                     <h1>Cadastro</h1>
                 </div>
                 <div class="w3-container" style="text-align: left; margin-left: 10%;">
-                    <form id = "sign_up" method="post">
+                    <form id = "sign_up" method="post" action="sistema.js">
                         <br>
                         <text id = "warning_cadastro"> </text>
                         <label for="primeiroNomeCadastro"> Nome: </label>
@@ -148,12 +149,51 @@
                         </label>
                         <br><br>
                         <button type="reset"> Limpar formulário </button>
-                        <button type="button"> Finalizar </button>
+                        <button id= 'ButtonCadastro' type="button"> Finalizar </button>
                         <br><br>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Popup postar receita -->
+        <div id="menu-postar-receitas" class="w3-modal">
+            <div class="w3-modal-content w3-animate-zoom">
+                <div class="w3-container w3-black w3-display-container">
+                    <span onclick="document.getElementById('menu-postar-receitas').style.display='none'"
+                        class="w3-button w3-display-topright w3-large">x</span>
+                    <h1>Postar Receitas</h1>
+                </div>
+                <div class="w3-container" style="text-align: center;">
+                    <form id = "postar_receitas" method="post" action="sistema.js">
+                        <br>
+                        <text id = "warning_post_receita"> </text>
+                        <label for="nome_receita"> Nome da receita: </label>
+                        <input type="text" id="nome_receita" name="nome_receita">
+                        <br><br>
+                        <label for="Ingredientes" style="display: block; margin-bottom: 10px;"> Ingredientes: </label>
+                        <textarea id="Ingredientes" name="Ingredientes" rows="7" cols="50" required> </textarea>
+                        &nbsp;
+                        <br><br>
+                        <label for="modo_de_preparo" style="display: block; margin-bottom: 10px;"> Modo de preparo: </label>
+                        <textarea id="modo_de_preparo" name="modo_de_preparo" rows="7" cols="50" required> </textarea>
+                        &nbsp;
+                        <br><br>
+                        <label for="tempo_de_preparo"> Tempo de preparo (em minutos): </label>
+                        <input type="number" id="tempo_de_preparo" name="tempo_de_preparo" required>
+                        &nbsp;
+                        <br><br>
+                        <label for="imagem_receita"> Imagem: </label>
+                        <input type="file" id="imagem_receita" name="imagem_receita" accept="image/png, image/jpeg" required>
+                        &nbsp;
+                        <br><br>
+                        <button type="reset"> Limpar </button>
+                        <button id="ButtonPostar" type="button" > Postar </button>
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+
     </article>
 
     <div class="row">
