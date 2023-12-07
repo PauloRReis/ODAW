@@ -409,15 +409,12 @@ insertReceitas(){
     var ingredientes = document.getElementById("Ingredientes").value;
     var modo_de_preparo = document.getElementById("modo_de_preparo").value;
     var tempo_de_preparo = document.getElementById("tempo_de_preparo").value;
+    var aux = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+    var usuarioLogado = Object.values(JSON.parse(aux));
+    var b = usuarioLogado[0];
+    var c = b[0].split(',');
 
-    console.log(nome_receita);
-    console.log(ingredientes);
-    console.log(modo_de_preparo);
-    console.log(tempo_de_preparo);
-
-    var dados = primeiroNomeCadastro+"^"+email_cadastro+"^"+senha_sign_up+"^"+ultimoNomeCadastro;
-
-    console.log(dados);
+    var dados = nome_receita+"^"+ingredientes+"^"+modo_de_preparo+"^"+tempo_de_preparo+"^"+c;
 
     $.ajax({
         url: "persistencia/receita.php",
@@ -425,7 +422,8 @@ insertReceitas(){
             type:"POST",
             cache:false,
             success: function(r){
-                var a = new Receitas(nome_receita, ingredientes, modo_de_preparo, tempo_de_preparo);
+                console.log(r);
+                var a = new Receita(nome_receita, ingredientes, modo_de_preparo, tempo_de_preparo, c);
                 Sys.receitas.push(a);            
             }
     })

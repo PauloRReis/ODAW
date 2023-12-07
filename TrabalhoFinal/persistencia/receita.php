@@ -30,7 +30,7 @@ if($_POST['op'] == "0"){ //SELECT
     die($json);
 }elseif($_POST['op'] == "1"){ //INSERT
     $d = explode("^", $_POST["dados"]);
-    $sql = "INSERT INTO receita(nome_receita, modo_de_preparo, ingredientes, tempo_de_preparo, ID_Usuario) VALUES ('".$d[0]."','".$d[1]."', '".$d[2]."' , '".$d[3]."', ".$d[7].")";
+    $sql = "INSERT INTO receita(nome_receita, modo_de_preparo, ingredientes, tempo_de_preparo, ID_Usuario) VALUES ('".$d[0]."','".$d[1]."', '".$d[2]."' , ".$d[3].", ".$d[4].")";
     $localhost->query($sql);
 
     $r1 = $localhost->query("SELECT LAST_INSERT_ID()");
@@ -38,7 +38,7 @@ if($_POST['op'] == "0"){ //SELECT
     $idINS = $r[0];
     $localhost->close();
 
-    die($idINS."^".$d[0]."^".$d[1]."^".$d[2]."^".$d[3]."^".$d[7]);
+    die($idINS."^".$d[0]."^".$d[1]."^".$d[2]."^".$d[3]."^".$d[4]);
 }
 
 $localhost->close();
