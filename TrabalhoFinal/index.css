@@ -61,8 +61,6 @@ article {
     display: table;
     clear: both;
 }
-.row {}
-/* Style the footer */
 .footer {
     background-color: #f1f1f1;
     padding: 10px;

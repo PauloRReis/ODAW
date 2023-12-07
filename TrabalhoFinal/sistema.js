@@ -311,6 +311,7 @@ insertUsuario(){
     var ultimoNomeCadastro = document.getElementById("ultimoNomeCadastro").value;
     var email_cadastro = document.getElementById("email_cadastro").value;
     var senha_sign_up = document.getElementById("senha_sign_up").value;
+    var popup = document.getElementById('menu-cadastro');
 
     var dados = primeiroNomeCadastro+"^"+email_cadastro+"^"+senha_sign_up+"^"+ultimoNomeCadastro;
 
@@ -322,6 +323,7 @@ insertUsuario(){
         success: function(r){
             var a = new Usuario(primeiroNomeCadastro, email_cadastro, senha_sign_up, ultimoNomeCadastro);
             Sys.usuarios.push(a);
+            popup.style.display = 'none';
         }
     });
 
@@ -409,12 +411,14 @@ insertReceitas(){
     var ingredientes = document.getElementById("Ingredientes").value;
     var modo_de_preparo = document.getElementById("modo_de_preparo").value;
     var tempo_de_preparo = document.getElementById("tempo_de_preparo").value;
+    var popup = document.getElementById('menu-postar-receitas');
     var aux = JSON.parse(sessionStorage.getItem('usuarioLogado'));
     var usuarioLogado = Object.values(JSON.parse(aux));
     var b = usuarioLogado[0];
-    var c = b[0].split(',');
+    var c = b[1].split(',');
+    console.log(c);
 
-    var dados = nome_receita+"^"+ingredientes+"^"+modo_de_preparo+"^"+tempo_de_preparo+"^"+c;
+    var dados = nome_receita+"^"+modo_de_preparo+"^"+ingredientes+"^"+tempo_de_preparo+"^"+c;
 
     $.ajax({
         url: "persistencia/receita.php",
@@ -423,8 +427,9 @@ insertReceitas(){
             cache:false,
             success: function(r){
                 console.log(r);
-                var a = new Receita(nome_receita, ingredientes, modo_de_preparo, tempo_de_preparo, c);
-                Sys.receitas.push(a);            
+                var a = new Receita(nome_receita, modo_de_preparo, ingredientes, tempo_de_preparo, c);
+                Sys.receitas.push(a);  
+                popup.style.display = 'none';         
             }
     })
 }
